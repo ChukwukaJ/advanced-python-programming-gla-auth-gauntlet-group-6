@@ -7,7 +7,7 @@
 # | Method            | Stateful?  | DB Lookup?| Credentials sent  | Safe on  |
 # |                   |            |           | every request?    | HTTP?    |
 # +-------------------+------------+-----------+-------------------+----------+
-# | Basic Auth        |            |           |                   |          |
+# | Basic Auth        | No         | Yes       | Yes               | No       |
 # | Session Auth      |            |           |                   |          |
 # | Opaque Token Auth |            |           |                   |          |
 # | JWT               |            |           |                   |          |
@@ -34,19 +34,17 @@ from rest_framework.response import Response
 @authentication_classes([BasicAuthentication])
 @permission_classes([IsAuthenticated])
 def basic_auth_view(request):
-    # ── Driver Task ───────────────────────────────────────────────────────────
-    # TODO: Extract the raw Authorization header from request.META and print
-    #       it to the terminal with a descriptive label.
-    #       Then return: Response({"message": "Check your terminal!"})
-    #
-    # Hint: the header key in request.META is 'HTTP_AUTHORIZATION'.
-    # ─────────────────────────────────────────────────────────────────────────
+    auth_header = request.META.get('HTTP_AUTHORIZATION')
+    print(f"Incoming Header: {auth_header}")
 
     # Reporter — Phase 1 challenge answers:
     # Q1 answer (header format for admin:admin123):
+    # Basic authentication uses the format "username:password", so it is:
+    # admin:admin123
     # Q2 answer (what happens without credentials):
+    # The request returns 401 Unauthorized because no valid credentials were sent.
 
-    return Response({"message": "Phase 1 stub — Driver: complete the TODO above."})
+    return Response({"message": "Check your terminal!"})
 
 
 # ─────────────────────────────────────────────────────────────────────────────
