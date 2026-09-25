@@ -13,6 +13,22 @@
 #       Authorization: Basic <base64(username:password)> header.
 #       Tip: REST Client supports  Authorization: Basic admin admin123  directly.
 
+### Phase 1 — Basic Auth (unauthenticated)
+GET http://127.0.0.1:8000/api/basic/ HTTP/1.1
+
+###
+
+### Phase 1 — Basic Auth (with credentials)
+GET http://127.0.0.1:8000/api/basic/ HTTP/1.1
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
+###
+
+### Phase 1 — Reusing an intercepted Basic Auth header
+# Base64 is only encoding, so an intercepted header can be replayed directly.
+GET http://127.0.0.1:8000/api/basic/ HTTP/1.1
+Authorization: Basic YWRtaW46YWRtaW4xMjM=
+
 
 ### ═══════════════════════════════════════════════════════════════════════════
 ### PHASE 3 — Token Authentication (Opaque)
