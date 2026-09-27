@@ -33,7 +33,13 @@ Authorization: Basic YWRtaW46YWRtaW4xMjM=
 ### ═══════════════════════════════════════════════════════════════════════════
 ### PHASE 3 — Token Authentication (Opaque)
 ### ═══════════════════════════════════════════════════════════════════════════
-# TODO: Generate a DRF token for the admin user first (see lab README).
+### Phase 3 — Opaque Token Auth
+GET http://127.0.0.1:8000/api/token/ HTTP/1.1
+Authorization: Token 98205a4421156fd281e477ebc9a7346059e22fc6
+
+### Phase 3 — Tampered Token
+GET http://127.0.0.1:8000/api/token/ HTTP/1.1
+Authorization: Token 98205a4421156fd281e477ebc9a7346059e22fc7
 # TODO: Find the Token Auth endpoint in api/urls.py.
 # TODO: Write a GET request that sends the token using the
 #       Authorization: Token <your-token> header.
@@ -42,6 +48,20 @@ Authorization: Basic YWRtaW46YWRtaW4xMjM=
 ### ═══════════════════════════════════════════════════════════════════════════
 ### PHASE 4 — JSON Web Tokens (JWT)
 ### ═══════════════════════════════════════════════════════════════════════════
+### Phase 4 — JWT Login (obtain tokens)
+POST http://127.0.0.1:8000/api/jwt/login/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "password": "admin123"
+}
+
+### Phase 4 — JWT Protected Request
+# Paste your access token below, replacing <ACCESS_TOKEN>
+GET http://127.0.0.1:8000/api/jwt/protected/ HTTP/1.1
+Authorization: Bearer <ACCESS_TOKEN>
+
 # TODO: Find the JWT login endpoint in api/urls.py.
 # TODO: Write a POST request with a JSON body containing username and password.
 # After sending, copy the "access" value from the response and paste it below:
