@@ -44,8 +44,11 @@ def basic_auth_view(request):
     # Q1 answer (header format for admin:admin123):
     # Basic authentication uses the format "username:password", so it is:
     # admin:admin123
-    # Q2 answer (what happens without credentials):
-    # The request returns 401 Unauthorized because no valid credentials were sent.
+    # Q2 answer (HTTP vs HTTPS):
+    # Even though the credentials are Base64 encoded instead of plaintext,
+    # Base64 is just encoding, not encryption, so it's easy to reverse.
+    # Over plain HTTP the header is sent unencrypted, so anyone intercepting
+    # the traffic can decode it and get the username and password directly.
 
     return Response({"message": "Check your terminal!"})
 
@@ -75,6 +78,11 @@ def session_auth_view(request):
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def token_auth_view(request):
+    # Team Challenge 1 answer:
+    # The tampered token returned 401 Unauthorized. DRF's TokenAuthentication
+    # couldn't find a matching token record in the database, so the request
+    # failed authentication.
+
     # Django does not store admin123 as plain text.
 # The password uses the PBKDF2-SHA256 hashing algorithm
 # (pbkdf2_sha256$ prefix) with a salt, making the stored
