@@ -17,7 +17,17 @@
 #   decides how to verify the username and password.
 #
 # ** A self-contained JWT can be validated using its signature without
-#    looking up the access token in a database. However, if the server implements a denylist 
+#    looking up the access token in a database. However, if the server implements a denylist #
+# Discussion prompts:
+# 1. Writing the raw Authorization header by hand in REST Client made it
+#    clear what Postman was building for us automatically when we used its
+#    Basic Auth tab.
+# 2. JWT is the best fit for an offline mobile app since it's self contained
+#    and doesn't need a server round trip or database lookup to validate.
+# 3. None of these methods are safe on a network you don't control unless
+#    HTTPS is used, since HTTP sends everything unencrypted. Of the four,
+#    JWT and opaque tokens are relatively better than Basic Auth since they
+#    don't resend the actual password on every request.
 
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.permissions import IsAuthenticated
