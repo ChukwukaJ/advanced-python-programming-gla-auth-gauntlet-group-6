@@ -17,7 +17,7 @@
 #   decides how to verify the username and password.
 #
 # ** A self-contained JWT can be validated using its signature without
-#    looking up the access token in the database.
+#    looking up the access token in a database. However, if the server implements a denylist 
 
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.permissions import IsAuthenticated
